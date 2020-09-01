@@ -511,7 +511,7 @@ export default {
                                     callback(new Error('商品唯一编码已存在'))
                                 }
                                 callback()
-                            }, 2000)
+                            }, 1000)
                         }
                     },
                     {
