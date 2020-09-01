@@ -3,48 +3,139 @@
         <el-tabs v-model="activeName" tab-position="left">
             <el-tab-pane label="基础功能" name="demo1">
                 <SkuForm :source-attribute="demo1.sourceAttribute" :attribute.sync="demo1.attribute" :sku.sync="demo1.sku" />
-                <el-button type="primary" @click="log(demo1)">查看数据</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo1.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo1.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="自定义表格" name="demo2">
                 <SkuForm :source-attribute="demo2.sourceAttribute" :attribute.sync="demo2.attribute" :sku.sync="demo2.sku" :structure="demo2.structure" />
-                <el-button type="primary" @click="log(demo2)">查看数据</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo2.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo2.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="表格数据复原" name="demo3">
                 <SkuForm :source-attribute="demo3.sourceAttribute" :attribute.sync="demo3.attribute" :sku.sync="demo3.sku" :structure="demo3.structure" :disabled="demo3.disabled" />
-                <el-button type="primary" @click="log(demo3)">查看数据</el-button>
                 <el-button @click="demo3.disabled = !demo3.disabled">只读/编辑模式切换</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo3.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo3.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="隐藏批量设置" name="demo4">
                 <SkuForm :source-attribute="demo4.sourceAttribute" :attribute.sync="demo4.attribute" :sku.sync="demo4.sku" :structure="demo4.structure" />
-                <el-button type="primary" @click="log(demo4)">查看数据</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo4.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo4.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="展示列" name="demo5">
                 <SkuForm :source-attribute="demo5.sourceAttribute" :attribute.sync="demo5.attribute" :sku.sync="demo5.sku" :structure="demo5.structure" disabled />
-                <el-button type="primary" @click="log(demo5)">查看数据</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo5.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo5.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="计算列" name="demo6">
                 <SkuForm :source-attribute="demo6.sourceAttribute" :attribute.sync="demo6.attribute" :sku.sync="demo6.sku" :structure="demo6.structure" />
-                <el-button type="primary" @click="log(demo6)">查看数据</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo6.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo6.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="必填验证" name="demo7">
                 <SkuForm ref="demo7" :source-attribute="demo7.sourceAttribute" :attribute.sync="demo7.attribute" :sku.sync="demo7.sku" :structure="demo7.structure" />
-                <el-button type="primary" @click="log(demo7)">查看数据</el-button>
                 <el-button type="primary" @click="check('demo7')">校验</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo7.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo7.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="自定义验证" name="demo8">
                 <SkuForm ref="demo8" :source-attribute="demo8.sourceAttribute" :attribute.sync="demo8.attribute" :sku.sync="demo8.sku" :structure="demo8.structure" />
-                <el-button type="primary" @click="log(demo8)">查看数据</el-button>
                 <el-button type="primary" @click="check('demo8')">校验</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo8.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo8.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="异步验证" name="demo9">
                 <SkuForm ref="demo9" :source-attribute="demo9.sourceAttribute" :attribute.sync="demo9.attribute" :sku.sync="demo9.sku" :structure="demo9.structure" />
-                <el-button type="primary" @click="log(demo9)">查看数据</el-button>
                 <el-button type="primary" @click="check('demo9')">校验</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo9.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo9.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
             <el-tab-pane label="异步加载" name="demo10">
                 <SkuForm ref="demo10" :source-attribute="demo10.sourceAttribute" :attribute.sync="demo10.attribute" :sku.sync="demo10.sku" :structure="demo10.structure" />
                 <el-button type="primary" :loading="demo10.loading" @click="load(1)">加载数据1</el-button>
                 <el-button type="primary" :loading="demo10.loading" @click="load(2)">加载数据2</el-button>
+                <el-row type="flex" :gutter="20">
+                    <el-col>
+                        <el-divider content-position="left">attribute 数据</el-divider>
+                        <pre><code>{{ demo10.attribute }}</code></pre>
+                    </el-col>
+                    <el-col>
+                        <el-divider content-position="left">sku 数据</el-divider>
+                        <pre><code>{{ demo10.sku }}</code></pre>
+                    </el-col>
+                </el-row>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -67,7 +158,8 @@ export default {
                     }
                 ],
                 attribute: [],
-                sku: []
+                sku: [],
+                separator: '__'
             },
             demo2: {
                 sourceAttribute: [
