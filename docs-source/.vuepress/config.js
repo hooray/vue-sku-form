@@ -1,6 +1,7 @@
 module.exports = {
 	title: 'vue-sku-form',
 	description: '基于 Vue & ElementUI 的电商 SKU 表单配置组件',
+	base: '/vue-sku-form/',
 	dest: 'docs',
 	plugins: ['demo-container'],
 	themeConfig: {
