@@ -1,8 +1,8 @@
 {
     "name": "vue-sku-form",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "private": false,
-    "main": "./dist/SkuForm.umd.min.js",
+    "main": "./dist/SkuForm.umd.js",
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
