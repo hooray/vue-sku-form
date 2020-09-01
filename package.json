@@ -1,0 +1,21 @@
+{
+  "name": "vue-sku-form-docs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "docs:dev": "vuepress dev docs-source",
+    "docs:build": "vuepress build docs-source"
+  },
+  "devDependencies": {
+    "eslint": "^7.8.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "vuepress": "^1.5.4",
+    "vuepress-plugin-demo-container": "^0.2.0"
+  },
+  "dependencies": {
+    "core-js": "2.6.11",
+    "element-ui": "^2.13.2",
+    "vue-sku-form": "^0.1.2"
+  }
+}
