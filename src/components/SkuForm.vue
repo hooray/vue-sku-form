@@ -52,6 +52,7 @@
 
 <script>
 export default {
+    name: 'SkuForm',
     props: {
         /**
          * 原始规格数据
