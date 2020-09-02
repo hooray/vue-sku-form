@@ -1,40 +1,43 @@
 <template>
     <div>
         <el-tabs v-model="activeName" tab-position="left" @tab-click="tabSwitch">
-            <el-tab-pane label="基础功能" name="demo1">
+            <el-tab-pane label="基础功能" name="ExampleBasic">
                 <ExampleBasic />
             </el-tab-pane>
-            <el-tab-pane label="自定义SKU(连接符)" name="demo2">
+            <el-tab-pane label="自定义SKU(连接符)" name="ExampleSeparator">
                 <ExampleSeparator />
             </el-tab-pane>
-            <el-tab-pane label="禁用SKU可选属性配置" name="demo3">
+            <el-tab-pane label="禁用SKU可选属性配置" name="ExampleDisabled">
                 <ExampleDisabled />
             </el-tab-pane>
-            <el-tab-pane label="自定义表格" name="demo4">
+            <el-tab-pane label="自定义表格" name="ExampleCustomize">
                 <ExampleCustomize />
             </el-tab-pane>
-            <el-tab-pane label="数据还原" name="demo5">
+            <el-tab-pane label="数据还原" name="ExampleRecovery">
                 <ExampleRecovery />
             </el-tab-pane>
-            <el-tab-pane label="批量设置" name="demo6">
+            <el-tab-pane label="批量设置" name="ExampleBatch">
                 <ExampleBatch />
             </el-tab-pane>
-            <el-tab-pane label="展示列" name="demo7">
+            <el-tab-pane label="展示列" name="ExampleText">
                 <ExampleText />
             </el-tab-pane>
-            <el-tab-pane label="计算列" name="demo8">
+            <el-tab-pane label="计算列" name="ExampleComputed">
                 <ExampleComputed />
             </el-tab-pane>
-            <el-tab-pane label="必填验证" name="demo9">
+            <el-tab-pane label="必填验证" name="ExampleRequired">
                 <ExampleRequired />
             </el-tab-pane>
-            <el-tab-pane label="自定义验证" name="demo10">
+            <el-tab-pane label="自定义验证" name="ExampleValidate">
                 <ExampleValidate />
             </el-tab-pane>
-            <el-tab-pane label="异步验证" name="demo11">
+            <el-tab-pane label="异步验证" name="ExampleAsyncValidate">
                 <ExampleAsyncValidate />
             </el-tab-pane>
-            <el-tab-pane label="异步加载" name="demo12">
+            <el-tab-pane label="指定列验证" name="ExampleValidateCol">
+                <ExampleValidateCol />
+            </el-tab-pane>
+            <el-tab-pane label="异步加载" name="ExampleAsyncRecovery">
                 <ExampleAsyncRecovery />
             </el-tab-pane>
         </el-tabs>
@@ -53,6 +56,7 @@ import ExampleComputed from './examples/computed'
 import ExampleRequired from './examples/required'
 import ExampleValidate from './examples/validate'
 import ExampleAsyncValidate from './examples/async-validate'
+import ExampleValidateCol from './examples/validate-col'
 import ExampleAsyncRecovery from './examples/async-recovery'
 
 export default {
@@ -68,11 +72,12 @@ export default {
         ExampleRequired,
         ExampleValidate,
         ExampleAsyncValidate,
+        ExampleValidateCol,
         ExampleAsyncRecovery
     },
     data() {
         return {
-            activeName: 'demo1'
+            activeName: 'ExampleBasic'
         }
     },
     mounted() {

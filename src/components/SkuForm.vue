@@ -131,10 +131,10 @@ export default {
                 if (v.type == 'input') {
                     rules[v.name] = []
                     if (v.required) {
-                        rules[v.name].push({ required: true, message: `${v.label}不能为空`, trigger: ['blur', 'change'] })
+                        rules[v.name].push({ required: true, message: `${v.label}不能为空`, trigger: 'blur' })
                     }
                     if (v.validate) {
-                        rules[v.name].push({ validator: this.customizeValidate, trigger: ['blur', 'change'] })
+                        rules[v.name].push({ validator: this.customizeValidate, trigger: 'blur' })
                     }
                 }
             })
@@ -185,7 +185,7 @@ export default {
                         })
                         this.form.skuData.push(obj)
                     }
-                    this.$refs['form'].clearValidate()
+                    this.clearValidate()
                 })
             },
             deep: true
@@ -202,7 +202,7 @@ export default {
                         }
                         this.structure.forEach(v2 => {
                             if (v2.type != 'computed') {
-                                obj[v2.name] = v1[v2.name]
+                                obj[v2.name] = v1[v2.name] || ''
                             }
                         })
                         arr.push(obj)
@@ -345,6 +345,8 @@ export default {
                     v[type] = this.batch[type]
                 })
                 this.batch[type] = ''
+                // 批量设置完成后，触发一次当前列的验证
+                this.validateField([type], () => {})
             }
         },
         // 自定义输入框验证，通过调用 structure 里的 validate 方法实现，重点是 callback 要带过去
@@ -372,6 +374,9 @@ export default {
             this.$refs['form'].validateField(newProps, valid => {
                 callback(valid)
             })
+        },
+        clearValidate() {
+            this.$refs['form'].clearValidate()
         }
     }
 }
