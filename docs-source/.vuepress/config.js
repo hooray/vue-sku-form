@@ -37,6 +37,7 @@ module.exports = {
 					'examples/required',
 					'examples/validate',
 					'examples/async-validate',
+					'examples/validate-col',
 					'examples/async-recovery'
 				]
 			}
