@@ -131,10 +131,10 @@ export default {
                 if (v.type == 'input') {
                     rules[v.name] = []
                     if (v.required) {
-                        rules[v.name].push({ required: true, message: `${v.label}不能为空`, trigger: 'blur' })
+                        rules[v.name].push({ required: true, message: `${v.label}不能为空`, trigger: ['blur', 'change'] })
                     }
                     if (v.validate) {
-                        rules[v.name].push({ validator: this.customizeValidate, trigger: 'blur' })
+                        rules[v.name].push({ validator: this.customizeValidate, trigger: ['blur', 'change'] })
                     }
                 }
             })
