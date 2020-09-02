@@ -11,7 +11,8 @@
         </div>
         <div class="sku-list">
             <el-form ref="form" :model="form" status-icon inline-message>
-                <el-table :data="form.skuData" stripe border highlight-current-row>
+                <!-- 增加是 key 保证 skuData 变化后，整个表格重新生成，因为不这么处理，异步验证会有 bug -->
+                <el-table :key="(new Date()).getTime()" :data="form.skuData" stripe border highlight-current-row>
                     <!-- 考虑到异步加载的情况，如果 attribute 数据先加载完成，则表头会立马展示，效果不理想，故使用emitAttribute 数据，该数据为计算属性，通过 myAttribute 生成，结构与 attribute 一致 -->
                     <el-table-column v-if="emitAttribute.length > 0" type="index" width="50" align="center" :resizable="false" />
                     <el-table-column v-for="(item, index) in emitAttribute" :key="`attribute-${index}`" :label="item.name" :prop="item.name" width="100" align="center" :resizable="false" />
