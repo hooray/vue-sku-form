@@ -7526,10 +7526,10 @@ vue-server-renderer@^2.6.10:
     serialize-javascript "^3.1.0"
     source-map "0.5.6"
 
-vue-sku-form@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.npmjs.org/vue-sku-form/-/vue-sku-form-0.1.8.tgz#1177be4426e934574bd1fb9ee3649fac33dd3d86"
-  integrity sha512-nHN7s63Jv9C0I1wkDCTw0ApXolyYymIiwvu7C2VzP7BCUvHmlVSxg7kkRKLRM1rHis73RfzEzcy8sYujgRmqHg==
+vue-sku-form@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.npmjs.org/vue-sku-form/-/vue-sku-form-0.1.9.tgz#38197534ea8800297de4b374f4d40575d067d0ea"
+  integrity sha512-0O4yzNSRzgE6kFQ1gCuf7QQo52xRllzM5NerA7e3RY6dIPbo2eYTuIzhpMZSOAA5wsY1gxLdmEa7LeS7vAoygA==
   dependencies:
     core-js "^3.6.5"
     element-ui "^2.13.2"
