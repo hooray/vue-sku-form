@@ -7,6 +7,12 @@ module.exports = {
 	themeConfig: {
 		search: false,
 		displayAllHeaders: true,
+		nav: [
+			{
+				text: 'Github',
+				link: 'https://github.com/hooray/vue-sku-form'
+			}
+		],
 		sidebar: [
 			{
 				title: '指南',

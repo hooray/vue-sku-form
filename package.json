@@ -8,8 +8,6 @@
     "docs:build": "vuepress build docs-source"
   },
   "devDependencies": {
-    "eslint": "^7.8.0",
-    "eslint-plugin-vue": "^6.2.2",
     "vuepress": "^1.5.4",
     "vuepress-plugin-demo-container": "^0.2.0"
   },
