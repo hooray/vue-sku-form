@@ -28,7 +28,7 @@
                         <!-- 自定义表格内部展示 -->
                         <template slot-scope="scope">
                             <!-- 增加是 key 是为了保证异步验证不会出现 skuData 数据变化后无法验证的 bug -->
-                            <el-form-item v-if="item.type == 'input'" :prop="'skuData.' + scope.$index + '.' + item.name" :rules="rules[item.name]">
+                            <el-form-item v-if="item.type == 'input'" :key="`structure-input-${index}-${scope.row.sku}`" :prop="'skuData.' + scope.$index + '.' + item.name" :rules="rules[item.name]">
                                 <el-input v-model="scope.row[item.name]" :placeholder="`请输入${item.label}`" size="small" />
                             </el-form-item>
                             <span v-else-if="item.type == 'text'">{{ scope.row[item.name] }}</span>
