@@ -37,17 +37,19 @@ export default {
             ],
             structure: [
                 {
-                    name: 'code',
+                    name: 'goods_code',
                     type: 'input',
                     label: '商品唯一编码',
                     tip: '模拟异步操作，如果输入123则会提示编码已存在',
                     required: true,
+                    // data: 完整 sku 数据，index: 当前 sku 在 data 中的下标，callback: 验证结果回调函数
                     validate: (data, index, callback) => {
                         setTimeout(() => {
-                            if (data[index].code == '123') {
+                            if (data[index].goods_code == '123') {
                                 callback(new Error('商品唯一编码已存在'))
+                            } else {
+                                callback()
                             }
-                            callback()
                         }, 1000)
                     }
                 },

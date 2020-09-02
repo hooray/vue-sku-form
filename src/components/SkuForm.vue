@@ -35,10 +35,10 @@
                         </template>
                     </el-table-column>
                     <!-- 批量设置，当 sku 数超过 2 个时出现 -->
-                    <template v-if="form.skuData.length > 2" slot="append">
+                    <template v-if="isBatch && form.skuData.length > 2" slot="append">
                         <el-table :data="[{}]" :show-header="false">
                             <el-table-column :width="attribute.length * 100 + 50" align="center" :resizable="false">批量设置</el-table-column>
-                            <el-table-column v-for="(item, index) in structure" :key="`structure-${index}`" align="center" :resizable="false">
+                            <el-table-column v-for="(item, index) in structure" :key="`batch-structure-${index}`" align="center" :resizable="false">
                                 <el-input v-if="item.type == 'input' && item.batch != false" v-model="batch[item.name]" :placeholder="`填写一个${item.label}`" size="small" @keyup.enter.native="onBatchSet(item.name)" />
                             </el-table-column>
                         </el-table>
@@ -139,6 +139,11 @@ export default {
             })
             return rules
         },
+        isBatch() {
+            return this.structure.some(item => {
+                return item.type == 'input' && item.batch != false
+            })
+        },
         emitAttribute() {
             let attribute = []
             this.myAttribute.forEach(v1 => {
@@ -186,25 +191,22 @@ export default {
         },
         'form.skuData': {
             handler(newValue, oldValue) {
-                if (!this.isInit) {
+                // 如果有老数据，或者 sku 数据为空，则更新父级 sku 数据
+                if (oldValue.length || !this.sku.length) {
                     // 更新父组件
-                    if (oldValue.length) {
-                        const arr = []
-                        newValue.forEach(v1 => {
-                            const obj = {
-                                sku: v1.sku
+                    const arr = []
+                    newValue.forEach(v1 => {
+                        const obj = {
+                            sku: v1.sku
+                        }
+                        this.structure.forEach(v2 => {
+                            if (v2.type != 'computed') {
+                                obj[v2.name] = v1[v2.name]
                             }
-                            this.structure.forEach(v2 => {
-                                if (v2.type == 'computed') {
-                                    v1[v2.name] = v2.computed(v1)
-                                } else {
-                                    obj[v2.name] = v1[v2.name]
-                                }
-                            })
-                            arr.push(obj)
                         })
-                        this.$emit('update:sku', arr)
-                    }
+                        arr.push(obj)
+                    })
+                    this.$emit('update:sku', arr)
                 }
             },
             deep: true
