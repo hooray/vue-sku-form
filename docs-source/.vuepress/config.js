@@ -40,6 +40,13 @@ module.exports = {
 					'examples/validate-col',
 					'examples/async-recovery'
 				]
+			},
+			{
+				title: '扩展阅读',
+				collapsable: false,
+				children: [
+					'expand/front-end'
+				]
 			}
 		]
 	}
