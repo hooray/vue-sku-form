@@ -6,6 +6,7 @@
             :structure="structure"
             :attribute.sync="attribute"
             :sku.sync="sku"
+            async
         />
         <el-button type="primary" :loading="loading" style="margin-top: 10px;" @click="load">模拟数据加载</el-button>
         <el-row type="flex" :gutter="20">
@@ -26,7 +27,16 @@ export default {
     data() {
         return {
             loading: false,
-            sourceAttribute: [],
+            sourceAttribute: [
+                {
+                    name: '颜色',
+                    item: ['黑', '金', '白']
+                },
+                {
+                    name: '内存',
+                    item: ['16G', '32G']
+                }
+            ],
             structure: [
                 {
                     name: 'originalprice',
@@ -52,46 +62,34 @@ export default {
         load() {
             this.loading = true
             setTimeout(() => {
-                this.sourceAttribute = [
+                this.attribute = [
                     {
                         name: '颜色',
-                        item: ['黑', '金', '白']
+                        item: ['黑', '金']
                     },
                     {
                         name: '内存',
-                        item: ['16G', '32G']
+                        item: ['64G']
                     }
                 ]
                 setTimeout(() => {
-                    this.attribute = [
+                    this.sku = [
                         {
-                            name: '颜色',
-                            item: ['黑', '金']
+                            sku: '黑;64G',
+                            originalprice: 100,
+                            price: 80,
+                            stock: 100
                         },
                         {
-                            name: '内存',
-                            item: ['64G']
+                            sku: '金;64G',
+                            originalprice: 100,
+                            price: 85,
+                            stock: 50
                         }
                     ]
-                    setTimeout(() => {
-                        this.sku = [
-                            {
-                                sku: '黑;64G',
-                                originalprice: 100,
-                                price: 80,
-                                stock: 100
-                            },
-                            {
-                                sku: '金;64G',
-                                originalprice: 100,
-                                price: 85,
-                                stock: 50
-                            }
-                        ]
-                        // 切记，必须在 sourceAttribute、attribute、sku 三组数据都加载后再执行 init() 方法
-                        this.$refs.skuForm.init()
-                        this.loading = false
-                    }, 300)
+                    // 切记，必须在 attribute、sku 数据都加载后再执行 init() 方法
+                    this.$refs.skuForm.init()
+                    this.loading = false
                 }, 300)
             }, 300)
         }

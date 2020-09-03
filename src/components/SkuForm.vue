@@ -112,6 +112,10 @@ export default {
         disabled: {
             type: Boolean,
             default: false
+        },
+        async: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -146,6 +150,7 @@ export default {
                 return item.type == 'input' && item.batch != false
             })
         },
+        // 将 myAttribute 数据还原会 attribute 数据的结构，用于更新 attribute
         emitAttribute() {
             let attribute = []
             this.myAttribute.forEach(v1 => {
@@ -218,7 +223,7 @@ export default {
     },
     created() {},
     mounted() {
-        this.init()
+        !this.async && this.init()
     },
     methods: {
         init() {
@@ -308,7 +313,7 @@ export default {
             if (index !== this.attribute.length - 1) {
                 this.combinationAttribute(index + 1, dataTemp)
             } else {
-                if (!this.isInit) {
+                if (!this.isInit || this.async) {
                     // 将原有的 sku 数据和新的 sku 数据比较，相同的 sku 则把原有的 sku 数据覆盖到新的 sku 数据里
                     for (let i = 0; i < this.form.skuData.length; i++) {
                         for (let j = 0; j < dataTemp.length; j++) {
