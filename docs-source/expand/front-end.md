@@ -144,6 +144,8 @@ export default {
 export default {
 	data() {
 		return {
+			// sku字段分隔符
+			separator: ';',
 			attribute: [
 				{
 					name: '颜色',
@@ -207,9 +209,9 @@ export default {
 			})
 			// 对 sku 数据进行加工，并存入 process_sku 中
 			this.sku.map(v => {
-				var combArr = this.arrayCombine(v.sku.split(';'))
+				var combArr = this.arrayCombine(v.sku.split(this.separator))
 				for (var j = 0; j < combArr.length; j++) {
-					var key = combArr[j].join(';')
+					var key = combArr[j].join(this.separator)
 					if (this.process_sku[key]) {
 						// 库存累加，价格添加进数组
 						this.process_sku[key].stock += v.stock
@@ -295,9 +297,9 @@ export default {
 				})
 				sku.push(name)
 			})
-			this.stock = this.process_sku[sku.join(';')].stock
-			this.minprice = Math.min.apply(Math, this.process_sku[sku.join(';')].prices)
-			this.maxprice = Math.max.apply(Math, this.process_sku[sku.join(';')].prices)
+			this.stock = this.process_sku[sku.join(this.separator)].stock
+			this.minprice = Math.min.apply(Math, this.process_sku[sku.join(this.separator)].prices)
+			this.maxprice = Math.max.apply(Math, this.process_sku[sku.join(this.separator)].prices)
 		},
 		getStockPrice() {
 			this.process_attribute.map(attr => {
@@ -335,7 +337,7 @@ export default {
 							sku.push(text)
 						}
 					})
-					if (this.process_sku[sku.join(';')].stock == 0) {
+					if (this.process_sku[sku.join(this.separator)].stock == 0) {
 						item.disabled = true
 					}
 				})
@@ -359,7 +361,7 @@ export default {
 									sku.push(text)
 								}
 							})
-							if (this.process_sku[sku.join(';')].stock == 0) {
+							if (this.process_sku[sku.join(this.separator)].stock == 0) {
 								item.disabled = true
 							}
 						}
@@ -377,7 +379,7 @@ export default {
 				return filter.length != 0
 			})
 			if (isSelectSKU) {
-				this.$message.success(`当前SKU为：${sku.join(';')}`)
+				this.$message.success(`当前SKU为：${sku.join(this.separator)}`)
 			} else {
 				this.$message.warning('请选择完整商品属性')
 			}
