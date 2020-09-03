@@ -202,7 +202,9 @@ export default {
                             sku: v1.sku
                         }
                         this.structure.forEach(v2 => {
-                            if (v2.type != 'computed') {
+                            if (v2.type == 'computed') {
+                                v1[v2.name] = v2.computed(v1)
+                            } else {
                                 obj[v2.name] = v1[v2.name] || ''
                             }
                         })
