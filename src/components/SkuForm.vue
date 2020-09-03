@@ -14,7 +14,7 @@
                 <el-table :data="form.skuData" stripe border highlight-current-row>
                     <!-- 考虑到异步加载的情况，如果 attribute 数据先加载完成，则表头会立马展示，效果不理想，故使用emitAttribute 数据，该数据为计算属性，通过 myAttribute 生成，结构与 attribute 一致 -->
                     <el-table-column v-if="emitAttribute.length > 0" type="index" width="50" align="center" :resizable="false" />
-                    <el-table-column v-for="(item, index) in emitAttribute" :key="`attribute-${index}`" :label="item.name" :prop="item.name" width="100" align="center" :resizable="false" />
+                    <el-table-column v-for="(attr, index) in emitAttribute" :key="`attribute-${index}`" :label="attr.name" :prop="attr.name" width="120" align="center" :resizable="false" sortable :filters="filterItem(attr.item)" :filter-method="filterHandler" />
                     <el-table-column v-for="(item, index) in structure" :key="`structure-${index}`" :label="item.label" :prop="item.name" align="center" :resizable="false">
                         <!-- 自定义表头 -->
                         <template slot="header">
@@ -38,7 +38,7 @@
                     <!-- 批量设置，当 sku 数超过 2 个时出现 -->
                     <template v-if="isBatch && form.skuData.length > 2" slot="append">
                         <el-table :data="[{}]" :show-header="false">
-                            <el-table-column :width="attribute.length * 100 + 50" align="center" :resizable="false">批量设置</el-table-column>
+                            <el-table-column :width="attribute.length * 120 + 50" align="center" :resizable="false">批量设置</el-table-column>
                             <el-table-column v-for="(item, index) in structure" :key="`batch-structure-${index}`" align="center" :resizable="false">
                                 <el-input v-if="item.type == 'input' && item.batch != false" v-model="batch[item.name]" :placeholder="`填写一个${item.label}`" size="small" @keyup.enter.native="onBatchSet(item.name)" />
                             </el-table-column>
@@ -198,34 +198,49 @@ export default {
         },
         'form.skuData': {
             handler(newValue, oldValue) {
-                // 如果有老数据，或者 sku 数据为空，则更新父级 sku 数据
-                if (oldValue.length || !this.sku.length) {
-                    // 更新父组件
-                    const arr = []
-                    newValue.forEach(v1 => {
-                        const obj = {
-                            sku: v1.sku
-                        }
-                        this.structure.forEach(v2 => {
-                            if (v2.type == 'computed') {
-                                v1[v2.name] = v2.computed(v1)
-                            } else {
-                                obj[v2.name] = v1[v2.name] || ''
+                if (!this.isInit) {
+                    // 如果有老数据，或者 sku 数据为空，则更新父级 sku 数据
+                    if (oldValue.length || !this.sku.length) {
+                        // 更新父组件
+                        const arr = []
+                        newValue.forEach(v1 => {
+                            const obj = {
+                                sku: v1.sku
                             }
+                            this.structure.forEach(v2 => {
+                                if (v2.type == 'computed') {
+                                    v1[v2.name] = v2.computed(v1)
+                                } else {
+                                    obj[v2.name] = v1[v2.name] || ''
+                                }
+                            })
+                            arr.push(obj)
                         })
-                        arr.push(obj)
-                    })
-                    this.$emit('update:sku', arr)
+                        this.$emit('update:sku', arr)
+                    }
                 }
             },
             deep: true
         }
     },
-    created() {},
     mounted() {
         !this.async && this.init()
     },
     methods: {
+        filterItem(item) {
+            let filters = []
+            item.map(v => {
+                filters.push({
+                    text: v,
+                    value: v
+                })
+            })
+            return filters
+        },
+        filterHandler(value, row, column) {
+            const property = column['property']
+            return row[property] === value
+        },
         init() {
             this.isInit = true
             // 初始化 myAttribute
