@@ -2,7 +2,7 @@
 lang: zh-CN
 ---
 
-# 前端应用实现
+# 前台应用实现
 
 ::: tip 提示
 如果想了解 SKU 组合查询算法的实现思路，请移步《[电商平台商品 SKU 组合查询算法实现](https://hooray.github.io/posts/8b2bd6f8/)》
