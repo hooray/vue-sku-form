@@ -14,7 +14,9 @@ lang: zh-CN
 | [sku](#sku)                           | SKU数据，支持 `.sync` 修饰符     | array   | []                                                                                                 |
 | separator                             | SKU字段分隔符                    | string  | ;                                                                                                  |
 | emptySku                              | 无属性SKU名称                    | string  |                                                                                                    |
-| disabled                              | 禁用SKU可选属性                  | boolean | false                                                                                              |
+| disabled                              | 是否显示SKU选择栏                | boolean | false                                                                                              |
+| theme                                 | SKU选择栏主题风格，可选1或2      | int     | 1                                                                                                  |
+| async                                 | 是否开启异步加载                 | boolean | false                                                                                              |
 
 ### source-attribute
 

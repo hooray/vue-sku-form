@@ -5,7 +5,14 @@ export default ({
 	Vue // VuePress 正在使用的 Vue 构造函数
 }) => {
 	Vue.use(ElementUI)
-	import('vue-sku-form').then(function (m) {
-		Vue.use(m.default)
+	Vue.mixin({
+		mounted() {
+			import('vue-sku-form').then(function (m) {
+				Vue.use(m.default)
+			})
+		}
 	})
+	// import('vue-sku-form').then(function (m) {
+	// 	Vue.use(m.default)
+	// })
 }

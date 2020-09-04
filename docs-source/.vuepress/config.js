@@ -29,6 +29,7 @@ module.exports = {
 					'examples/basic',
 					'examples/separator',
 					'examples/disabled',
+					'examples/theme',
 					'examples/customize',
 					'examples/recovery',
 					'examples/batch',
