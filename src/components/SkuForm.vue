@@ -1,13 +1,30 @@
 <template>
     <div class="sku-container">
         <div v-if="!disabled" class="sku-check">
-            <el-card v-for="(item, index) in myAttribute" :key="index" class="item" shadow="never">
-                <div slot="header">{{ item.name }}</div>
-                <el-checkbox v-for="(item2, index2) in item.item" :key="index2" v-model="item2.checked" :label="item2.name" size="small" />
-                <el-input v-model="item.addAttribute" size="small" placeholder="新增一个规格" class="add-attr" @keyup.enter.native="onAddAttribute(index)">
-                    <el-button slot="append" size="small" icon="el-icon-plus" @click="onAddAttribute(index)">添加</el-button>
-                </el-input>
-            </el-card>
+            <div v-if="theme == 1" class="theme-1">
+                <el-card v-for="(item, index) in myAttribute" :key="index" class="item" shadow="never">
+                    <div slot="header">{{ item.name }}</div>
+                    <el-checkbox v-for="(item2, index2) in item.item" :key="index2" v-model="item2.checked" :label="item2.name" size="small" />
+                    <el-input v-model="item.addAttribute" size="small" placeholder="新增一个规格" class="add-attr" @keyup.enter.native="onAddAttribute(index)">
+                        <el-button slot="append" size="small" icon="el-icon-plus" @click="onAddAttribute(index)">添加</el-button>
+                    </el-input>
+                </el-card>
+            </div>
+            <el-table v-else :data="myAttribute" :show-header="false" stripe class="theme-2">
+                <el-table-column prop="name" width="120" :resizable="false" />
+                <el-table-column>
+                    <template slot-scope="scope">
+                        <el-checkbox v-for="(item2, index2) in scope.row.item" :key="index2" v-model="item2.checked" :label="item2.name" size="small" />
+                    </template>
+                </el-table-column>
+                <el-table-column width="250">
+                    <template slot-scope="scope">
+                        <el-input v-model="scope.row.addAttribute" size="small" placeholder="新增一个规格" class="add-attr" @keyup.enter.native="onAddAttribute(scope.$index)">
+                            <el-button slot="append" size="small" icon="el-icon-plus" @click="onAddAttribute(scope.$index)">添加</el-button>
+                        </el-input>
+                    </template>
+                </el-table-column>
+            </el-table>
         </div>
         <div class="sku-list">
             <el-form ref="form" :model="form" status-icon inline-message>
@@ -99,7 +116,7 @@ export default {
                 { name: 'stock', type: 'input', label: '库存' }
             ]
         },
-        // sku字段分隔符
+        // sku 字段分隔符
         separator: {
             type: String,
             default: ';'
@@ -109,10 +126,17 @@ export default {
             type: String,
             default: ''
         },
+        // 是否显示 sku 选择栏
         disabled: {
             type: Boolean,
             default: false
         },
+        // 主题风格
+        theme: {
+            type: Number,
+            default: 1
+        },
+        // 是否开启异步加载
         async: {
             type: Boolean,
             default: false
@@ -418,19 +442,26 @@ export default {
         }
     }
     .sku-check {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-bottom: 20px;
-        .item {
-            width: 32%;
-            &:last-child:nth-child(3n - 1) {
-                margin-right: calc(100% - 32% * 2 - 4% / 2) !important;
+        .theme-1 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            .item {
+                width: 32%;
+                &:last-child:nth-child(3n - 1) {
+                    margin-right: calc(100% - 32% * 2 - 4% / 2) !important;
+                }
+                .add-attr {
+                    width: 100%;
+                    margin-top: 10px;
+                }
             }
-            .add-attr {
-                width: 100%;
-                margin-top: 10px;
-            }
+        }
+        .theme-2 {
+            border: 1px solid #dcdfe6;
+            border-bottom: 0;
+            margin-bottom: 20px;
         }
     }
     .sku-name {

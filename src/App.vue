@@ -10,6 +10,9 @@
             <el-tab-pane label="禁用SKU可选属性配置" name="ExampleDisabled">
                 <ExampleDisabled />
             </el-tab-pane>
+            <el-tab-pane label="主题风格" name="ExampleTheme">
+                <ExampleTheme />
+            </el-tab-pane>
             <el-tab-pane label="自定义表格" name="ExampleCustomize">
                 <ExampleCustomize />
             </el-tab-pane>
@@ -48,6 +51,7 @@
 import ExampleBasic from './examples/basic'
 import ExampleSeparator from './examples/separator'
 import ExampleDisabled from './examples/disabled'
+import ExampleTheme from './examples/theme'
 import ExampleCustomize from './examples/customize'
 import ExampleRecovery from './examples/recovery'
 import ExampleBatch from './examples/batch'
@@ -64,6 +68,7 @@ export default {
         ExampleBasic,
         ExampleSeparator,
         ExampleDisabled,
+        ExampleTheme,
         ExampleCustomize,
         ExampleRecovery,
         ExampleBatch,
