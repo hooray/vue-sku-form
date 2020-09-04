@@ -9,9 +9,9 @@ lang: zh-CN
 | 参数                                  | 说明                             | 类型    | 默认值                                                                                             |
 | :------------------------------------ | :------------------------------- | :------ | :------------------------------------------------------------------------------------------------- |
 | [source-attribute](#source-attribute) | SKU可选属性                      | array   | []                                                                                                 |
-| [attribute](#attribute)               | SKU已选属性，支持 `.sync` 修饰符 | array   | []                                                                                                 |
 | [structure](#structure)               | 表单结构                         | array   | [{ name: 'price', type: 'input', label: '价格' }, { name: 'stock', type: 'input', label: '库存' }] |
-| [sku](#sku)                           | SKU数据，支持 `.sync` 修饰符     | array   | []                                                                                                 |
+| [attribute](#attribute)               | SKU已选属性，支持 `.sync` 修饰符 | array   | []                                                                                                 |
+| sku                                   | SKU数据，支持 `.sync` 修饰符     | array   | []                                                                                                 |
 | separator                             | SKU字段分隔符                    | string  | ;                                                                                                  |
 | emptySku                              | 无属性SKU名称                    | string  |                                                                                                    |
 | disabled                              | 是否显示SKU选择栏                | boolean | false                                                                                              |
@@ -32,28 +32,6 @@ lang: zh-CN
 	{ name: '颜色', item: ['黑', '金', '白'] },
 	{ name: '内存', item: ['16G', '32G'] },
 	{ name: '运营商', item: ['电信', '移动', '联通'] }
-]
-```
-
-### attribute
-
-| 名称 | 说明       | 类型   | 可选值 |
-| :--- | :--------- | :----- | :----- |
-| name | 属性名称   | string |        |
-| item | 属性已选项 | array  |        |
-
-
-```js
-// 例子
-[
-	{ name: '颜色', item: ['黑', '红'] },
-	{ name: '运营商', item: ['电信'] }
-]
-// 需要注意 attribute 的属性名称需要 source-attribute 里存在，但 attribute 的属性已选项则没有限制
-// 例如下面的例子则是错误示范
-[
-	{ name: '尺码', item: ['L', 'M'] },
-	{ name: '运营商', item: ['电信'] }
 ]
 ```
 
@@ -115,6 +93,28 @@ lang: zh-CN
 			callback()
 		}
 	}
+]
+```
+
+### attribute
+
+| 名称 | 说明       | 类型   | 可选值 |
+| :--- | :--------- | :----- | :----- |
+| name | 属性名称   | string |        |
+| item | 属性已选项 | array  |        |
+
+
+```js
+// 例子
+[
+	{ name: '颜色', item: ['黑', '红'] },
+	{ name: '运营商', item: ['电信'] }
+]
+// 需要注意 attribute 的属性名称需要 source-attribute 里存在，但 attribute 的属性已选项则没有限制
+// 例如下面的例子则是错误示范
+[
+	{ name: '尺码', item: ['L', 'M'] },
+	{ name: '运营商', item: ['电信'] }
 ]
 ```
 
