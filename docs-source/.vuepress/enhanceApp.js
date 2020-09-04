@@ -6,7 +6,7 @@ export default ({
 }) => {
 	Vue.use(ElementUI)
 	Vue.mixin({
-		mounted() {
+		created() {
 			import('vue-sku-form').then(function (m) {
 				Vue.use(m.default)
 			})
