@@ -1,7 +1,10 @@
 import SkuForm from './SkuForm.vue'
 
-export default {
-    install: function(Vue) {
-        Vue.component(SkuForm.name, SkuForm)
+SkuForm.install = Vue => {
+    if (!Vue) {
+        window.Vue = Vue = import('vue')
     }
+    Vue.component(SkuForm.name, SkuForm)
 }
+
+export default SkuForm
