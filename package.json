@@ -8,7 +8,7 @@
         "element-ui",
         "form"
     ],
-    "version": "0.2.5",
+    "version": "0.2.6",
     "directories": {
         "dist": "dist"
     },
