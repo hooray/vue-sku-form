@@ -15,7 +15,7 @@ yarn add vue-sku-form
 npm install vue-sku-form
 ```
 
-安装完成后，在 `main.js` 中增加以下内容：
+安装完成后，可以选择全局引入或者局部引入。全局引入需要在 `main.js` 中增加以下内容：
 
 ```js
 import SkuForm from 'vue-sku-form'
@@ -31,3 +31,21 @@ Vue.use(SkuForm)
 </template>
 ```
 :::
+
+局部引入则在页面中手动引入：
+
+```vue
+<template>
+    <SkuForm />
+</template>
+
+<script>
+import SkuForm from 'vue-sku-form'
+
+export default {
+	components: {
+		SkuForm
+	}
+}
+</script>
+```
