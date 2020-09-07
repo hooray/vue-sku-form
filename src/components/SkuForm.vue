@@ -222,7 +222,7 @@ export default {
         },
         'form.skuData': {
             handler(newValue, oldValue) {
-                if (!this.isInit) {
+                if (!this.async) {
                     // 如果有老数据，或者 sku 数据为空，则更新父级 sku 数据
                     if (oldValue.length || !this.sku.length) {
                         // 更新父组件
