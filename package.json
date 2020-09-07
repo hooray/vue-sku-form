@@ -8,7 +8,7 @@
         "element-ui",
         "form"
     ],
-    "version": "0.2.6",
+    "version": "0.2.7",
     "directories": {
         "dist": "dist"
     },
@@ -24,7 +24,8 @@
     "dependencies": {
         "core-js": "^3.6.5",
         "element-ui": "^2.13.2",
-        "vue": "^2.6.11"
+        "vue": "^2.6.11",
+        "vue-router": "^3.4.3"
     },
     "devDependencies": {
         "@vue/cli-plugin-babel": "~4.5.0",
