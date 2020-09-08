@@ -31,8 +31,8 @@
                 <el-table :data="form.skuData" stripe border highlight-current-row>
                     <!-- 考虑到异步加载的情况，如果 attribute 数据先加载完成，则表头会立马展示，效果不理想，故使用emitAttribute 数据，该数据为计算属性，通过 myAttribute 生成，结构与 attribute 一致 -->
                     <el-table-column v-if="emitAttribute.length > 0" type="index" width="50" align="center" :resizable="false" />
-                    <el-table-column v-for="(attr, index) in emitAttribute" :key="`attribute-${index}`" :label="attr.name" :prop="attr.name" width="120" align="center" :resizable="false" sortable :filters="filterItem(attr.item)" :filter-method="filterHandler" />
-                    <el-table-column v-for="(item, index) in structure" :key="`structure-${index}`" :label="item.label" :prop="item.name" align="center" :resizable="false">
+                    <el-table-column v-for="(attr, index) in emitAttribute" :key="`attribute-${index}`" :label="attr.name" :prop="attr.name" width="120" align="center" :resizable="false" sortable :filters="filterItem(attr.item)" :filter-method="filterHandler" filter-placement="bottom" />
+                    <el-table-column v-for="(item, index) in structure" :key="`structure-${index}`" :label="item.label" :prop="item.name" align="center" :resizable="false" min-width="120px">
                         <!-- 自定义表头 -->
                         <template slot="header">
                             <span :class="{'required_title': item.required}">
@@ -56,7 +56,7 @@
                     <template v-if="isBatch && form.skuData.length > 2" slot="append">
                         <el-table :data="[{}]" :show-header="false">
                             <el-table-column :width="attribute.length * 120 + 50" align="center" :resizable="false">批量设置</el-table-column>
-                            <el-table-column v-for="(item, index) in structure" :key="`batch-structure-${index}`" align="center" :resizable="false">
+                            <el-table-column v-for="(item, index) in structure" :key="`batch-structure-${index}`" align="center" :resizable="false" min-width="120px">
                                 <el-input v-if="item.type == 'input' && item.batch != false" v-model="batch[item.name]" :placeholder="`填写一个${item.label}`" size="small" @keyup.enter.native="onBatchSet(item.name)" />
                             </el-table-column>
                         </el-table>
@@ -369,19 +369,26 @@ export default {
         onAddAttribute(index) {
             this.myAttribute[index].addAttribute = this.myAttribute[index].addAttribute.trim()
             if (this.myAttribute[index].addAttribute !== '') {
-                const flag = this.myAttribute[index].item.some(item => {
-                    return item.name === this.myAttribute[index].addAttribute
-                })
-                if (!flag) {
-                    this.myAttribute[index].item.push({
-                        name: this.myAttribute[index].addAttribute,
-                        checked: true
+                if (!this.myAttribute[index].addAttribute.includes(this.separator)) {
+                    const flag = this.myAttribute[index].item.some(item => {
+                        return item.name === this.myAttribute[index].addAttribute
                     })
-                    this.myAttribute[index].addAttribute = ''
+                    if (!flag) {
+                        this.myAttribute[index].item.push({
+                            name: this.myAttribute[index].addAttribute,
+                            checked: true
+                        })
+                        this.myAttribute[index].addAttribute = ''
+                    } else {
+                        this.$message({
+                            type: 'warning',
+                            message: '请勿添加相同规格'
+                        })
+                    }
                 } else {
                     this.$message({
                         type: 'warning',
-                        message: '请勿添加相同规格'
+                        message: `规格里不允许出现「 ${this.separator} 」字符，请检查后重新添加`
                     })
                 }
             }

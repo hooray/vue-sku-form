@@ -1,6 +1,6 @@
 export default [
     {
-        path: '/',
+        path: '/basic',
         component: () => import('@/examples/basic'),
         meta: {
             title: '基础功能'
