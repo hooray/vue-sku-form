@@ -222,7 +222,7 @@ export default {
         },
         'form.skuData': {
             handler(newValue, oldValue) {
-                if (!this.async) {
+                if (!this.isInit || (newValue.length == 1 && newValue[0].sku == this.emptySku)) {
                     // 如果有老数据，或者 sku 数据为空，则更新父级 sku 数据
                     if (oldValue.length || !this.sku.length) {
                         // 更新父组件
@@ -266,64 +266,66 @@ export default {
             return row[property] === value
         },
         init() {
-            this.isInit = true
-            // 初始化 myAttribute
-            let myAttribute = []
-            // 根据 sourceAttribute 复原 myAttribute 的结构
-            this.sourceAttribute.forEach(v => {
-                const temp = {
-                    name: v.name,
-                    addAttribute: '',
-                    item: []
-                }
-                v.item.forEach(itemName => {
-                    temp.item.push({
-                        name: itemName,
-                        checked: false
-                    })
-                })
-                myAttribute.push(temp)
-            })
-            // 根据 attribute 更新 myAttribute
-            this.attribute.forEach(attrVal => {
-                myAttribute.forEach(myAttrVal => {
-                    if (attrVal.name === myAttrVal.name) {
-                        attrVal.item.forEach(attrName => {
-                            if (
-                                !myAttrVal.item.some(myAttrItem => {
-                                    if (attrName === myAttrItem.name) {
-                                        myAttrItem.checked = true
-                                    }
-                                    return attrName === myAttrItem.name
-                                })
-                            ) {
-                                myAttrVal.item.push({
-                                    name: attrName,
-                                    checked: true
-                                })
-                            }
-                        })
+            this.$nextTick(() => {
+                this.isInit = true
+                // 初始化 myAttribute
+                let myAttribute = []
+                // 根据 sourceAttribute 复原 myAttribute 的结构
+                this.sourceAttribute.forEach(v => {
+                    const temp = {
+                        name: v.name,
+                        addAttribute: '',
+                        item: []
                     }
+                    v.item.forEach(itemName => {
+                        temp.item.push({
+                            name: itemName,
+                            checked: false
+                        })
+                    })
+                    myAttribute.push(temp)
                 })
-            })
-            this.myAttribute = myAttribute
-            // 通过 sku 更新 skuData，但因为 skuData 是实时监听 myAttribute 变化并自动生成，而 watch 是在 methods 后执行，所以增加 setTimeout 方法，确保 skuData 生成后在执行下面的代码
-            setTimeout(() => {
-                this.sku.forEach(skuItem => {
-                    this.form.skuData.forEach(skuDataItem => {
-                        if (skuItem.sku === skuDataItem.sku) {
-                            this.structure.forEach(structureItem => {
-                                if (structureItem.type == 'computed') {
-                                    skuDataItem[structureItem.name] = structureItem.computed(skuDataItem)
-                                } else {
-                                    skuDataItem[structureItem.name] = skuItem[structureItem.name]
+                // 根据 attribute 更新 myAttribute
+                this.attribute.forEach(attrVal => {
+                    myAttribute.forEach(myAttrVal => {
+                        if (attrVal.name === myAttrVal.name) {
+                            attrVal.item.forEach(attrName => {
+                                if (
+                                    !myAttrVal.item.some(myAttrItem => {
+                                        if (attrName === myAttrItem.name) {
+                                            myAttrItem.checked = true
+                                        }
+                                        return attrName === myAttrItem.name
+                                    })
+                                ) {
+                                    myAttrVal.item.push({
+                                        name: attrName,
+                                        checked: true
+                                    })
                                 }
                             })
                         }
                     })
                 })
-                this.isInit = false
-            }, 0)
+                this.myAttribute = myAttribute
+                // 通过 sku 更新 skuData，但因为 skuData 是实时监听 myAttribute 变化并自动生成，而 watch 是在 methods 后执行，所以增加 setTimeout 方法，确保 skuData 生成后在执行下面的代码
+                setTimeout(() => {
+                    this.sku.forEach(skuItem => {
+                        this.form.skuData.forEach(skuDataItem => {
+                            if (skuItem.sku === skuDataItem.sku) {
+                                this.structure.forEach(structureItem => {
+                                    if (structureItem.type == 'computed') {
+                                        skuDataItem[structureItem.name] = structureItem.computed(skuDataItem)
+                                    } else {
+                                        skuDataItem[structureItem.name] = skuItem[structureItem.name]
+                                    }
+                                })
+                            }
+                        })
+                    })
+                    this.isInit = false
+                }, 0)
+            })
         },
         // 根据 attribute 进行排列组合，生成 skuData 数据
         combinationAttribute(index = 0, dataTemp = []) {
