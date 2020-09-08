@@ -7527,9 +7527,9 @@ vue-server-renderer@^2.6.10:
     source-map "0.5.6"
 
 vue-sku-form@^0.2.1:
-  version "0.2.7"
-  resolved "https://registry.npmjs.org/vue-sku-form/-/vue-sku-form-0.2.7.tgz#7b519b16b089e67cf095722628558387c3e3cff1"
-  integrity sha512-t41tivd+HUYsiO0rCcfgpYSCZltnsqYajrzluGY2qWxBN42F+0P/PJ9vcWYNMbNzP0iZm2CUoyYHkVotPnrrAA==
+  version "0.2.8"
+  resolved "https://registry.npmjs.org/vue-sku-form/-/vue-sku-form-0.2.8.tgz#f9493d807732d8d647ca4099b6e1d0b74d2eb7d6"
+  integrity sha512-mYHXzzH7E9n1/yMBQOiptvLRw9X/Kkv7nK6C/89g4ZIibvzcriBuBXh+Q3q/4ee8WVq+XuqeGRySJMcPeAx7OQ==
   dependencies:
     core-js "^3.6.5"
     element-ui "^2.13.2"
