@@ -251,20 +251,6 @@ export default {
         !this.async && this.init()
     },
     methods: {
-        filterItem(item) {
-            let filters = []
-            item.map(v => {
-                filters.push({
-                    text: v,
-                    value: v
-                })
-            })
-            return filters
-        },
-        filterHandler(value, row, column) {
-            const property = column['property']
-            return row[property] === value
-        },
         init() {
             this.$nextTick(() => {
                 this.isInit = true
@@ -404,6 +390,20 @@ export default {
                 // 批量设置完成后，触发一次当前列的验证
                 this.validateField([type], () => {})
             }
+        },
+        filterItem(item) {
+            let filters = []
+            item.map(v => {
+                filters.push({
+                    text: v,
+                    value: v
+                })
+            })
+            return filters
+        },
+        filterHandler(value, row, column) {
+            const property = column['property']
+            return row[property] === value
         },
         // 自定义输入框验证，通过调用 structure 里的 validate 方法实现，重点是 callback 要带过去
         customizeValidate(rule, value, callback) {
