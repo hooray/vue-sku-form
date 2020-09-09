@@ -10,7 +10,7 @@
                     </el-input>
                 </el-card>
             </div>
-            <el-table v-else :data="myAttribute" :show-header="false" stripe class="theme-2">
+            <el-table v-else :data="myAttribute" :show-header="false" class="theme-2">
                 <el-table-column prop="name" width="120" :resizable="false" />
                 <el-table-column>
                     <template slot-scope="scope">
@@ -468,7 +468,7 @@ export default {
             }
         }
         .theme-2 {
-            border: 1px solid #dcdfe6;
+            border: 1px solid #ebeef5;
             border-bottom: 0;
             margin-bottom: 20px;
         }
