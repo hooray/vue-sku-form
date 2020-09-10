@@ -18,6 +18,7 @@ lang: zh-CN
 		/>
 		<el-button type="primary" :loading="loading" style="margin-top: 10px;" @click="load(1)">模拟加载数据1</el-button>
 		<el-button type="primary" :loading="loading" style="margin-top: 10px;" @click="load(2)">模拟加载数据2</el-button>
+		<el-button type="primary" :loading="loading" style="margin-top: 10px;" @click="load(3)">模拟加载数据3</el-button>
 		<el-row type="flex" :gutter="20">
 			<el-col>
 				<el-divider content-position="left">attribute 数据</el-divider>
@@ -36,16 +37,7 @@ export default {
 	data() {
 		return {
 			loading: false,
-			sourceAttribute: [
-				{
-					name: '颜色',
-					item: ['黑', '金', '白']
-				},
-				{
-					name: '内存',
-					item: ['16G', '32G']
-				}
-			],
+			sourceAttribute: [],
 			structure: [
 				{
 					name: 'originalprice',
@@ -73,67 +65,104 @@ export default {
 			this.loading = true
 			if (type == 1) {
 				setTimeout(() => {
-					this.attribute = [
+					this.sourceAttribute = [
 						{
 							name: '颜色',
-							item: ['黑', '金']
+							item: ['黑', '金', '白']
 						},
 						{
 							name: '内存',
-							item: ['64G']
+							item: ['16G', '32G']
 						}
 					]
 					setTimeout(() => {
-						this.sku = [
+						this.attribute = [
 							{
-								sku: '黑;64G',
-								originalprice: '100',
-								price: '80',
-								stock: '100'
+								name: '颜色',
+								item: ['黑', '金']
 							},
 							{
-								sku: '金;64G',
-								originalprice: '100',
-								price: '85',
-								stock: '50'
+								name: '内存',
+								item: ['64G']
 							}
 						]
-						// 切记，必须在 attribute、sku 数据都加载后再执行 init() 方法
-						this.$refs.skuForm.init()
-						this.loading = false
+						setTimeout(() => {
+							this.sku = [
+								{
+									sku: '黑;64G',
+									originalprice: '100',
+									price: '80',
+									stock: '100'
+								},
+								{
+									sku: '金;64G',
+									originalprice: '100',
+									price: '85',
+									stock: '50'
+								}
+							]
+							// 切记，必须在 attribute、sku 数据都加载后再执行 init() 方法
+							this.$refs.skuForm.init()
+							this.loading = false
+						}, 300)
+					}, 300)
+				}, 300)
+			} else if (type == 2) {
+				setTimeout(() => {
+					this.sourceAttribute = [
+						{
+							name: '内存',
+							item: ['16G', '32G']
+						},
+						{
+							name: '颜色',
+							item: ['黑', '金', '白']
+						}
+					]
+					setTimeout(() => {
+						this.attribute = [
+							{
+								name: '内存',
+								item: ['64G']
+							},
+							{
+								name: '颜色',
+								item: ['红', '白']
+							}
+						]
+						setTimeout(() => {
+							this.sku = [
+								{
+									sku: '64G;红',
+									originalprice: 10,
+									price: 8,
+									stock: 10
+								},
+								{
+									sku: '64G;白',
+									originalprice: 10,
+									price: 8,
+									stock: 5
+								}
+							]
+							// 切记，必须在 attribute、sku 数据都加载后再执行 init() 方法
+							this.$refs.skuForm.init()
+							this.loading = false
+						}, 300)
 					}, 300)
 				}, 300)
 			} else {
 				setTimeout(() => {
-					this.attribute = [
+					this.sourceAttribute = [
 						{
 							name: '颜色',
-							item: ['红', '金']
-						},
-						{
-							name: '内存',
-							item: ['64G']
+							item: ['黑', '金', '白']
 						}
 					]
-					setTimeout(() => {
-						this.sku = [
-							{
-								sku: '红;64G',
-								originalprice: 10,
-								price: 8,
-								stock: 10
-							},
-							{
-								sku: '金;64G',
-								originalprice: 10,
-								price: 8,
-								stock: 5
-							}
-						]
-						// 切记，必须在 attribute、sku 数据都加载后再执行 init() 方法
-						this.$refs.skuForm.init()
-						this.loading = false
-					}, 300)
+					this.attribute = []
+					this.sku = []
+					this.$refs.skuForm.init()
+					this.loading = false
 				}, 300)
 			}
 		}
