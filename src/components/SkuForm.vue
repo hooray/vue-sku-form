@@ -50,15 +50,15 @@
                             </el-form-item>
                             <span v-else-if="item.type == 'text'">{{ scope.row[item.name] }}</span>
                             <span v-else-if="item.type == 'computed'">{{ scope.row[item.name] }}</span>
-                            <span v-else-if="item.type == 'image'" style="display: block; line-height: 0;">
-                                <span class="image-upload-container">
+                            <el-form-item v-else-if="item.type == 'image'" :key="`structure-input-${index}-${scope.row.sku}`" :prop="'skuData.' + scope.$index + '.' + item.name" :rules="rules[item.name]">
+                                <div class="image-upload-container">
                                     <el-image v-if="scope.row[item.name]" :src="scope.row[item.name]" :preview-src-list="[scope.row[item.name]]" fit="cover" title="点击预览" />
-                                    <el-upload :show-file-list="false" :headers="item.upload.headers || {}" :action="item.upload.action" :data="item.upload.data || {}" :name="item.upload.name" :before-upload="item.upload.beforeUpload" :on-success="res => imageUpload(res, scope.row, item)" class="images-upload">
+                                    <el-upload :show-file-list="false" :headers="item.upload.headers || {}" :action="item.upload.action" :data="item.upload.data || {}" :name="item.upload.name" :before-upload="item.upload.beforeUpload" :on-success="res => imageUpload(res, scope, item)" class="images-upload">
                                         <el-button size="small" icon="el-icon-upload2">{{ scope.row[item.name] ? '重新上传' : '上传图片' }}</el-button>
                                     </el-upload>
-                                    <el-button v-if="scope.row[item.name]" size="small" icon="el-icon-delete" @click="scope.row[item.name] = ''">移 除</el-button>
-                                </span>
-                            </span>
+                                    <el-button v-if="scope.row[item.name]" size="small" icon="el-icon-delete" @click="imageRemove(scope, item)" />
+                                </div>
+                            </el-form-item>
                         </template>
                     </el-table-column>
                     <!-- 批量设置，当 sku 数超过 2 个时出现 -->
@@ -174,6 +174,14 @@ export default {
                     if (v.validate) {
                         rules[v.name].push({ validator: this.customizeValidate, trigger: 'blur' })
                     }
+                } else if (v.type == 'image') {
+                    rules[v.name] = []
+                    if (v.required) {
+                        rules[v.name].push({ required: true, message: `${v.label}不能为空`, trigger: 'change' })
+                    }
+                    if (v.validate) {
+                        rules[v.name].push({ validator: this.customizeValidate, trigger: 'change' })
+                    }
                 }
             })
             return rules
@@ -260,11 +268,6 @@ export default {
         !this.async && this.init()
     },
     methods: {
-        imageUpload(res, row, item) {
-            let imagePath = item.upload.onSuccess(res)
-            row[item.name] = imagePath
-            this.$message.success('图片上传成功')
-        },
         init() {
             this.$nextTick(() => {
                 this.isInit = true
@@ -418,6 +421,17 @@ export default {
         filterHandler(value, row, column) {
             const property = column['property']
             return row[property] === value
+        },
+        // 图片上传
+        imageUpload(res, scope, item) {
+            let imagePath = item.upload.onSuccess(res)
+            scope.row[item.name] = imagePath
+            this.$message.success('图片上传成功')
+            this.$refs['form'].validateField([`skuData.${scope.$index}.${item.name}`], () => {})
+        },
+        imageRemove(scope, item) {
+            scope.row[item.name] = ''
+            this.$refs['form'].validateField([`skuData.${scope.$index}.${item.name}`], () => {})
         },
         // 自定义输入框验证，通过调用 structure 里的 validate 方法实现，重点是 callback 要带过去
         customizeValidate(rule, value, callback) {
