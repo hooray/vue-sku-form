@@ -96,5 +96,12 @@ export default [
         meta: {
             title: '异步加载'
         }
+    },
+    {
+        path: '/image-upload',
+        component: () => import('@/examples/image-upload'),
+        meta: {
+            title: '图片上传（测试）'
+        }
     }
 ]

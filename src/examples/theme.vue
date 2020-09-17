@@ -2,7 +2,6 @@
     <div>
         <SkuForm
             :source-attribute="sourceAttribute"
-            :structure="structure"
             :attribute.sync="attribute"
             :sku.sync="sku"
             :theme="theme"
@@ -33,23 +32,6 @@ export default {
                 {
                     name: '内存',
                     item: ['16G', '32G']
-                }
-            ],
-            structure: [
-                {
-                    name: 'originalprice',
-                    type: 'input',
-                    label: '原价'
-                },
-                {
-                    name: 'price',
-                    type: 'input',
-                    label: '现价'
-                },
-                {
-                    name: 'stock',
-                    type: 'input',
-                    label: '库存'
                 }
             ],
             attribute: [],

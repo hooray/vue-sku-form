@@ -50,6 +50,15 @@
                             </el-form-item>
                             <span v-else-if="item.type == 'text'">{{ scope.row[item.name] }}</span>
                             <span v-else-if="item.type == 'computed'">{{ scope.row[item.name] }}</span>
+                            <span v-else-if="item.type == 'image'" style="display: block; line-height: 0;">
+                                <span class="image-upload-container">
+                                    <el-image v-if="scope.row[item.name]" :src="scope.row[item.name]" :preview-src-list="[scope.row[item.name]]" fit="cover" title="点击预览" />
+                                    <el-upload :show-file-list="false" :headers="item.upload.headers || {}" :action="item.upload.action" :data="item.upload.data || {}" :name="item.upload.name" :before-upload="item.upload.beforeUpload" :on-success="res => imageUpload(res, scope.row, item)" class="images-upload">
+                                        <el-button size="small" icon="el-icon-upload2">{{ scope.row[item.name] ? '重新上传' : '上传图片' }}</el-button>
+                                    </el-upload>
+                                    <el-button v-if="scope.row[item.name]" size="small" icon="el-icon-delete" @click="scope.row[item.name] = ''">移 除</el-button>
+                                </span>
+                            </span>
                         </template>
                     </el-table-column>
                     <!-- 批量设置，当 sku 数超过 2 个时出现 -->
@@ -251,6 +260,11 @@ export default {
         !this.async && this.init()
     },
     methods: {
+        imageUpload(res, row, item) {
+            let imagePath = item.upload.onSuccess(res)
+            row[item.name] = imagePath
+            this.$message.success('图片上传成功')
+        },
         init() {
             this.$nextTick(() => {
                 this.isInit = true
@@ -506,6 +520,28 @@ export default {
         .required_title::before {
             content: '*';
             color: #f56c6c;
+        }
+        /deep/ .el-upload-dragger {
+            width: initial;
+            height: initial;
+            border: 0;
+            border-radius: 0;
+            background-color: initial;
+            overflow: auto;
+        }
+        .image-upload-container {
+            .el-image {
+                vertical-align: middle;
+                margin: 0 5px;
+                width: 30px;
+                height: 30px;
+            }
+            .images-upload,
+            > .el-button {
+                display: inline-block;
+                margin: 0 5px;
+                vertical-align: middle;
+            }
         }
     }
 }
