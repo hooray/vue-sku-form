@@ -78,7 +78,13 @@ export default {
                             }
                             return isTypeOk && isSizeOk
                         },
-                        onSuccess: res => res.data.path
+                        onSuccess: res => {
+                            // 这里会返回上传结果，提取出图片地址url
+                            console.log(res)
+                            // 模拟返回数据
+                            return 'http://images.lookbi.com/uploads/apply/166/e2e1b23647d67df2655d5e6bed76670c.jpg'
+                            // return res.data.path
+                        }
                     }
                 }
             ],

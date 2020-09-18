@@ -101,7 +101,7 @@ export default [
         path: '/image-upload',
         component: () => import('@/examples/image-upload'),
         meta: {
-            title: '图片上传（测试）'
+            title: '图片上传'
         }
     }
 ]
