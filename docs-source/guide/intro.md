@@ -40,7 +40,7 @@ lang: zh-CN
 | 名称     | 说明                              | 类型     | 默认值 | 可选值                       |
 | :------- | :-------------------------------- | :------- | :----- | :--------------------------- |
 | name     | SKU数据里的属性                   | string   |        |                              |
-| type     | 表单展示形式，默认为输入框        | array    | input  | input, text, computed, image |
+| type     | 表单展示形式，默认为输入框        | string   | input  | input, text, computed, image |
 | label    | 表头名称                          | string   |        |                              |
 | tip      | 鼠标悬停提示                      | string   |        |                              |
 | batch    | 是否开启批量设置                  | boolean  | true   |                              |
