@@ -31,7 +31,7 @@
                 <el-table :data="form.skuData" stripe border highlight-current-row>
                     <!-- 考虑到异步加载的情况，如果 attribute 数据先加载完成，则表头会立马展示，效果不理想，故使用emitAttribute 数据，该数据为计算属性，通过 myAttribute 生成，结构与 attribute 一致 -->
                     <el-table-column v-if="emitAttribute.length > 0" type="index" width="50" align="center" :resizable="false" />
-                    <el-table-column v-for="(attr, index) in emitAttribute" :key="`attribute-${index}`" :label="attr.name" :prop="attr.name" width="120" align="center" :resizable="false" sortable :filters="filterItem(attr.item)" :filter-method="filterHandler" filter-placement="bottom" />
+                    <el-table-column v-for="(attr, index) in emitAttribute" :key="`attribute-${index}`" :label="attr.name" :prop="attr.name" width="120" align="center" :resizable="false" sortable />
                     <el-table-column v-for="(item, index) in structure" :key="`structure-${index}`" :label="item.label" :prop="item.name" align="center" :resizable="false" min-width="120px">
                         <!-- 自定义表头 -->
                         <template slot="header">
@@ -407,20 +407,6 @@ export default {
                 // 批量设置完成后，触发一次当前列的验证
                 this.validateField([type], () => {})
             }
-        },
-        filterItem(item) {
-            let filters = []
-            item.map(v => {
-                filters.push({
-                    text: v,
-                    value: v
-                })
-            })
-            return filters
-        },
-        filterHandler(value, row, column) {
-            const property = column['property']
-            return row[property] === value
         },
         // 图片上传
         imageUpload(res, scope, item) {
