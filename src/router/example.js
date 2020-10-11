@@ -35,6 +35,20 @@ export default [
         }
     },
     {
+        path: '/customize-slot',
+        component: () => import('@/examples/customize-slot'),
+        meta: {
+            title: '自定义表格(插槽-文本)'
+        }
+    },
+    {
+        path: '/customize-slot-component',
+        component: () => import('@/examples/customize-slot-component'),
+        meta: {
+            title: '自定义表格(插槽-组件)'
+        }
+    },
+    {
         path: '/recovery',
         component: () => import('@/examples/recovery'),
         meta: {
@@ -46,20 +60,6 @@ export default [
         component: () => import('@/examples/batch'),
         meta: {
             title: '批量设置'
-        }
-    },
-    {
-        path: '/text',
-        component: () => import('@/examples/text'),
-        meta: {
-            title: '展示列'
-        }
-    },
-    {
-        path: '/computed',
-        component: () => import('@/examples/computed'),
-        meta: {
-            title: '计算列'
         }
     },
     {
@@ -95,13 +95,6 @@ export default [
         component: () => import('@/examples/async-recovery'),
         meta: {
             title: '异步加载'
-        }
-    },
-    {
-        path: '/image-upload',
-        component: () => import('@/examples/image-upload'),
-        meta: {
-            title: '图片上传'
         }
     }
 ]

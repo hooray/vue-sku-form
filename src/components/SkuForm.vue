@@ -48,18 +48,9 @@
                             <el-form-item v-if="item.type == 'input'" :key="`structure-input-${index}-${scope.row.sku}`" :prop="'skuData.' + scope.$index + '.' + item.name" :rules="rules[item.name]">
                                 <el-input v-model="scope.row[item.name]" :placeholder="`请输入${item.label}`" size="small" />
                             </el-form-item>
-                            <span v-else-if="item.type == 'text'">{{ scope.row[item.name] }}</span>
-                            <span v-else-if="item.type == 'computed'">{{ scope.row[item.name] }}</span>
-                            <el-form-item v-else-if="item.type == 'image'" :key="`structure-input-${index}-${scope.row.sku}`" :prop="'skuData.' + scope.$index + '.' + item.name" :rules="rules[item.name]">
-                                <div class="image-upload-container">
-                                    <el-image v-if="scope.row[item.name]" :src="scope.row[item.name]" :preview-src-list="[scope.row[item.name]]" fit="cover" title="点击预览" />
-                                    <el-upload :show-file-list="false" :headers="item.upload.headers || {}" :action="item.upload.action" :data="item.upload.data || {}" :name="item.upload.name" :before-upload="item.upload.beforeUpload" :on-success="res => imageUpload(res, scope, item)" class="images-upload">
-                                        <el-button size="small" icon="el-icon-upload2">{{ scope.row[item.name] ? '重新上传' : '上传图片' }}</el-button>
-                                    </el-upload>
-                                    <el-button v-if="scope.row[item.name]" size="small" icon="el-icon-delete" @click="imageRemove(scope, item)" />
-                                </div>
+                            <el-form-item v-else-if="item.type == 'slot'" :key="`structure-input-${index}-${scope.row.sku}`" :prop="'skuData.' + scope.$index + '.' + item.name" :rules="rules[item.name]">
+                                <slot :name="item.name" :$index="scope.$index" :row="scope.row" :column="scope.column" />
                             </el-form-item>
-                            <slot v-else-if="item.type == 'customize'" :name="item.name" :info="scope.row" />
                         </template>
                     </el-table-column>
                     <!-- 批量设置，当 sku 数超过 2 个时出现 -->
@@ -175,13 +166,13 @@ export default {
                     if (v.validate) {
                         rules[v.name].push({ validator: this.customizeValidate, trigger: 'blur' })
                     }
-                } else if (v.type == 'image') {
+                } else if (v.type == 'slot') {
                     rules[v.name] = []
                     if (v.required) {
-                        rules[v.name].push({ required: true, message: `${v.label}不能为空`, trigger: 'change' })
+                        rules[v.name].push({ required: true, message: `${v.label}不能为空`, trigger: ['change', 'blur'] })
                     }
                     if (v.validate) {
-                        rules[v.name].push({ validator: this.customizeValidate, trigger: 'change' })
+                        rules[v.name].push({ validator: this.customizeValidate, trigger: ['change', 'blur'] })
                     }
                 }
             })
@@ -229,7 +220,9 @@ export default {
                             sku: this.emptySku
                         }
                         this.structure.forEach(v => {
-                            obj[v.name] = ''
+                            if (!(v.type == 'slot' && v.skuProperty == false)) {
+                                obj[v.name] = typeof v.defaultValue != 'undefined' ? v.defaultValue : ''
+                            }
                         })
                         this.form.skuData.push(obj)
                     }
@@ -250,10 +243,8 @@ export default {
                                 sku: v1.sku
                             }
                             this.structure.forEach(v2 => {
-                                if (v2.type == 'computed') {
-                                    v1[v2.name] = v2.computed(v1)
-                                } else {
-                                    obj[v2.name] = v1[v2.name] || ''
+                                if (!(v2.type == 'slot' && v2.skuProperty == false)) {
+                                    obj[v2.name] = v1[v2.name] || (typeof v2.defaultValue != 'undefined' ? v2.defaultValue : '')
                                 }
                             })
                             arr.push(obj)
@@ -318,11 +309,7 @@ export default {
                         this.form.skuData.forEach(skuDataItem => {
                             if (skuItem.sku === skuDataItem.sku) {
                                 this.structure.forEach(structureItem => {
-                                    if (structureItem.type == 'computed') {
-                                        skuDataItem[structureItem.name] = structureItem.computed(skuDataItem)
-                                    } else {
-                                        skuDataItem[structureItem.name] = skuItem[structureItem.name]
-                                    }
+                                    skuDataItem[structureItem.name] = skuItem[structureItem.name]
                                 })
                             }
                         })
@@ -340,7 +327,9 @@ export default {
                         [this.attribute[0].name]: this.attribute[0].item[i]
                     }
                     this.structure.forEach(v => {
-                        obj[v.name] = ''
+                        if (!(v.type == 'slot' && v.skuProperty == false)) {
+                            obj[v.name] = typeof v.defaultValue != 'undefined' ? v.defaultValue : ''
+                        }
                     })
                     dataTemp.push(obj)
                 }
@@ -406,19 +395,8 @@ export default {
                 })
                 this.batch[type] = ''
                 // 批量设置完成后，触发一次当前列的验证
-                this.validateField([type], () => {})
+                this.validateFieldByColumns([type], () => {})
             }
-        },
-        // 图片上传
-        imageUpload(res, scope, item) {
-            let imagePath = item.upload.onSuccess(res)
-            scope.row[item.name] = imagePath
-            this.$message.success('图片上传成功')
-            this.$refs['form'].validateField([`skuData.${scope.$index}.${item.name}`], () => {})
-        },
-        imageRemove(scope, item) {
-            scope.row[item.name] = ''
-            this.$refs['form'].validateField([`skuData.${scope.$index}.${item.name}`], () => {})
         },
         // 自定义输入框验证，通过调用 structure 里的 validate 方法实现，重点是 callback 要带过去
         customizeValidate(rule, value, callback) {
@@ -435,14 +413,19 @@ export default {
                 callback(valid)
             })
         },
-        validateField(props, callback) {
-            let newProps = []
+        validateFieldByColumns(colums, callback) {
+            let props = []
             this.form.skuData.forEach((v, i) => {
-                props.forEach(v => {
-                    newProps.push(`skuData.${i}.${v}`)
+                colums.forEach(v => {
+                    props.push(`skuData.${i}.${v}`)
                 })
             })
-            this.$refs['form'].validateField(newProps, valid => {
+            this.$refs['form'].validateField(props, valid => {
+                callback(valid)
+            })
+        },
+        validateFieldByRows(index, prop, callback) {
+            this.$refs['form'].validateField([`skuData.${index}.${prop}`], valid => {
                 callback(valid)
             })
         },
@@ -521,28 +504,6 @@ export default {
         .required_title::before {
             content: '*';
             color: #f56c6c;
-        }
-        /deep/ .el-upload-dragger {
-            width: initial;
-            height: initial;
-            border: 0;
-            border-radius: 0;
-            background-color: initial;
-            overflow: auto;
-        }
-        .image-upload-container {
-            .el-image {
-                vertical-align: middle;
-                margin: 0 5px;
-                width: 30px;
-                height: 30px;
-            }
-            .images-upload,
-            > .el-button {
-                display: inline-block;
-                margin: 0 5px;
-                vertical-align: middle;
-            }
         }
     }
 }

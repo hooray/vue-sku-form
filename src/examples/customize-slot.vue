@@ -5,7 +5,14 @@
             :structure="structure"
             :attribute.sync="attribute"
             :sku.sync="sku"
-        />
+        >
+            <template #price="slotProps">
+                {{ slotProps.row.price }}
+            </template>
+            <template #totalPrice="slotProps">
+                {{ total(slotProps.row) }}
+            </template>
+        </SkuForm>
         <el-row type="flex" :gutter="20">
             <el-col>
                 <el-divider content-position="left">attribute 数据</el-divider>
@@ -36,8 +43,8 @@ export default {
             structure: [
                 {
                     name: 'price',
-                    type: 'input',
-                    label: '价格'
+                    type: 'slot',
+                    label: '现价'
                 },
                 {
                     name: 'stock',
@@ -46,18 +53,11 @@ export default {
                 },
                 {
                     name: 'totalPrice',
-                    type: 'computed',
+                    type: 'slot',
+                    // 如果该字段无需记录到 sku 数据里，则设置为 false
+                    skuProperty: false,
                     label: '总价',
-                    tip: '总价 = 价格 * 库存，如果价格或库存为空时，则不计算',
-                    // data: 单条 sku 数据
-                    computed: data => {
-                        let totalPrice = ''
-                        if (data.price && data.stock) {
-                            totalPrice = (parseFloat(data.price) * parseFloat(data.stock)).toFixed(2)
-                            totalPrice += ' 元'
-                        }
-                        return totalPrice
-                    }
+                    tip: '总价 = 价格 * 库存，如果价格或库存为空时，则不计算'
                 }
             ],
             attribute: [
@@ -87,6 +87,16 @@ export default {
                     stock: 50
                 }
             ]
+        }
+    },
+    methods: {
+        total(data) {
+            let totalPrice = ''
+            if (data.price && data.stock) {
+                totalPrice = (parseFloat(data.price) * parseFloat(data.stock)).toFixed(2)
+                totalPrice += ' 元'
+            }
+            return totalPrice
         }
     }
 }
