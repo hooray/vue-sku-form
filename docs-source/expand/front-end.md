@@ -20,7 +20,14 @@ lang: zh-CN
 			:attribute.sync="attribute"
 			:sku.sync="sku"
 			:disabled="true"
-		/>
+		>
+			<template #price="slotProps">
+				{{ slotProps.row.price }}
+			</template>
+			<template #stock="slotProps">
+				{{ slotProps.row.stock }}
+			</template>
+		</SkuForm>
 		<el-row type="flex" :gutter="20">
 			<el-col>
 				<el-divider content-position="left">attribute 数据</el-divider>
@@ -55,12 +62,12 @@ export default {
 			structure: [
 				{
 					name: 'price',
-					type: 'text',
+					type: 'slot',
 					label: '价格'
 				},
 				{
 					name: 'stock',
-					type: 'text',
+					type: 'slot',
 					label: '库存'
 				}
 			],
