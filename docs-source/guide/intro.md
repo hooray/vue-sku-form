@@ -37,17 +37,17 @@ lang: zh-CN
 
 ### structure
 
-| 名称         | 说明                                                            | 类型     | 默认值 | 可选值             |
-| :----------- | :-------------------------------------------------------------- | :------- | :----- | :----------------- |
-| name         | SKU数据里的属性                                                 | string   |        |                    |
-| type         | 表单展示形式，默认为输入框，当设置为 slot 时，为自定义插槽      | string   | input  | input, image, slot |
-| skuProperty  | 当 type 设置为 slot 时，可选择是否插槽数据是否记录到 sku 数据里 | boolean  | true   |                    |
-| defaultValue | 默认值                                                          | any      |        |                    |
-| label        | 表头名称                                                        | string   |        |                    |
-| tip          | 鼠标悬停提示                                                    | string   |        |                    |
-| batch        | 是否开启批量设置                                                | boolean  | true   |                    |
-| required     | 是否必填                                                        | boolean  | false  |                    |
-| validate     | 自定义校验回调方法                                              | function | false  |                    |
+| 名称         | 说明                                                            | 类型     | 默认值 | 可选值      |
+| :----------- | :-------------------------------------------------------------- | :------- | :----- | :---------- |
+| name         | SKU数据里的属性                                                 | string   |        |             |
+| type         | 表单展示形式，默认为输入框，当设置为 slot 时，为自定义插槽      | string   | input  | input, slot |
+| skuProperty  | 当 type 设置为 slot 时，可选择是否插槽数据是否记录到 sku 数据里 | boolean  | true   |             |
+| defaultValue | 默认值                                                          | any      |        |             |
+| label        | 表头名称                                                        | string   |        |             |
+| tip          | 鼠标悬停提示                                                    | string   |        |             |
+| batch        | 是否开启批量设置                                                | boolean  | true   |             |
+| required     | 是否必填                                                        | boolean  | false  |             |
+| validate     | 自定义校验回调方法                                              | function | false  |             |
 
 ```js
 // 例子
