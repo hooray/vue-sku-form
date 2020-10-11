@@ -31,16 +31,15 @@ module.exports = {
 					'examples/disabled',
 					'examples/theme',
 					'examples/customize',
+					'examples/customize-slot',
+					'examples/customize-slot-component',
 					'examples/recovery',
 					'examples/batch',
-					'examples/text',
-					'examples/computed',
 					'examples/required',
 					'examples/validate',
 					'examples/async-validate',
 					'examples/validate-col',
-					'examples/async-recovery',
-					'examples/image-upload'
+					'examples/async-recovery'
 				]
 			},
 			{

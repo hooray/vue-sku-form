@@ -13,13 +13,7 @@ lang: zh-CN
 			:structure="structure"
 			:attribute.sync="attribute"
 			:sku.sync="sku"
-		>
-			<template #test="slotProps">
-				<div>
-					<el-input-number v-model="slotProps.info.test" :min="1" :max="10" size="small" />
-				</div>
-			</template>
-		</SkuForm>
+		/>
 		<el-row type="flex" :gutter="20">
 			<el-col>
 				<el-divider content-position="left">attribute 数据</el-divider>
@@ -62,11 +56,6 @@ export default {
 					name: 'stock',
 					type: 'input',
 					label: '库存'
-				},
-				{
-					name: 'test',
-					type: 'customize',
-					label: '自定义插槽'
 				}
 			],
 			attribute: [],
