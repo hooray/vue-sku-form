@@ -37,17 +37,17 @@ lang: zh-CN
 
 ### structure
 
-| 名称     | 说明                                                            | 类型     | 默认值 | 可选值                                  |
-| :------- | :-------------------------------------------------------------- | :------- | :----- | :-------------------------------------- |
-| name     | SKU数据里的属性                                                 | string   |        |                                         |
-| type     | 表单展示形式，默认为输入框，当设置为“customize”时，为自定义插槽 | string   | input  | input, text, computed, image, customize |
-| label    | 表头名称                                                        | string   |        |                                         |
-| tip      | 鼠标悬停提示                                                    | string   |        |                                         |
-| batch    | 是否开启批量设置                                                | boolean  | true   |                                         |
-| computed | 计算列回调方法，参数为单条SKU数据                               | function |        |                                         |
-| required | 是否必填                                                        | boolean  | false  |                                         |
-| validate | 自定义校验回调方法                                              | function | false  |                                         |
-| upload   | 图片上传相关配置                                                | object   |        |                                         |
+| 名称         | 说明                                                            | 类型     | 默认值 | 可选值             |
+| :----------- | :-------------------------------------------------------------- | :------- | :----- | :----------------- |
+| name         | SKU数据里的属性                                                 | string   |        |                    |
+| type         | 表单展示形式，默认为输入框，当设置为 slot 时，为自定义插槽      | string   | input  | input, image, slot |
+| skuProperty  | 当 type 设置为 slot 时，可选择是否插槽数据是否记录到 sku 数据里 | boolean  | true   |                    |
+| defaultValue | 默认值                                                          | any      |        |                    |
+| label        | 表头名称                                                        | string   |        |                    |
+| tip          | 鼠标悬停提示                                                    | string   |        |                    |
+| batch        | 是否开启批量设置                                                | boolean  | true   |                    |
+| required     | 是否必填                                                        | boolean  | false  |                    |
+| validate     | 自定义校验回调方法                                              | function | false  |                    |
 
 ```js
 // 例子
@@ -70,21 +70,9 @@ lang: zh-CN
 		label: '销售价'
 	},
 	{
-		name: 'profit',
-		type: 'computed',
-		label: '利润',
-		tip: '利润 = 销售价 - 成本价，如果销售价或成本价为空时，利润则为 0',
-		computed: data => {
-			let profit = 0
-			if (data.price && data.originalprice) {
-				profit = (parseFloat(data.price) - parseFloat(data.originalprice)).toFixed(2)
-			}
-			return profit + ' 元'
-		}
-	},
-	{
 		name: 'stock',
 		type: 'input',
+		defaultValue: 10,
 		label: '库存',
 		tip: '库存数不能少于10',
 		validate: (data, index, callback) => {
@@ -92,45 +80,6 @@ lang: zh-CN
 				callback(new Error('库存不能小于10'))
 			}
 			callback()
-		}
-	},
-	{
-		name: 'image',
-		type: 'image',
-		label: '图片',
-		upload: {
-			// 上传请求头
-			headers: {},
-			// 上传地址
-			action: '',
-			// 上传时附带的额外参数
-			data: {},
-			// 上传的文件字段名
-			name: 'image',
-			// 上传之前的钩子，参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传
-			beforeUpload: file => {
-				const ext = ['jpg', 'png', 'gif', 'bmp']
-				const size = 2
-				const fileName = file.name.split('.')
-				const fileExt = fileName[fileName.length - 1]
-				const isTypeOk = ext.indexOf(fileExt) >= 0
-				const isSizeOk = file.size / 1024 / 1024 < size
-				if (!isTypeOk) {
-					this.$message.error(`上传图片只支持 ${ ext.join(' / ') } 格式！`)
-				}
-				if (!isSizeOk) {
-					this.$message.error(`上传图片大小不能超过 ${size}MB！`)
-				}
-				return isTypeOk && isSizeOk
-			},
-			// 上传成功时的钩子，参数为上传成功后的返回数据，需要提取图片 url 并返回，用于图片展示
-			onSuccess: res => {
-				// 这里会返回上传结果，提取出图片地址url
-				console.log(res)
-				// 模拟返回数据
-				return 'http://images.lookbi.com/uploads/apply/166/e2e1b23647d67df2655d5e6bed76670c.jpg'
-				// return res.data.path
-			}
 		}
 	}
 ]
