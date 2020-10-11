@@ -59,6 +59,7 @@
                                     <el-button v-if="scope.row[item.name]" size="small" icon="el-icon-delete" @click="imageRemove(scope, item)" />
                                 </div>
                             </el-form-item>
+                            <slot v-else-if="item.type == 'customize'" :name="item.name" :info="scope.row" />
                         </template>
                     </el-table-column>
                     <!-- 批量设置，当 sku 数超过 2 个时出现 -->
