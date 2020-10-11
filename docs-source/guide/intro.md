@@ -37,17 +37,17 @@ lang: zh-CN
 
 ### structure
 
-| 名称     | 说明                              | 类型     | 默认值 | 可选值                       |
-| :------- | :-------------------------------- | :------- | :----- | :--------------------------- |
-| name     | SKU数据里的属性                   | string   |        |                              |
-| type     | 表单展示形式，默认为输入框        | string   | input  | input, text, computed, image |
-| label    | 表头名称                          | string   |        |                              |
-| tip      | 鼠标悬停提示                      | string   |        |                              |
-| batch    | 是否开启批量设置                  | boolean  | true   |                              |
-| computed | 计算列回调方法，参数为单条SKU数据 | function |        |                              |
-| required | 是否必填                          | boolean  | false  |                              |
-| validate | 自定义校验回调方法                | function | false  |                              |
-| upload   | 图片上传相关配置                  | object   |        |                              |
+| 名称     | 说明                                                            | 类型     | 默认值 | 可选值                                  |
+| :------- | :-------------------------------------------------------------- | :------- | :----- | :-------------------------------------- |
+| name     | SKU数据里的属性                                                 | string   |        |                                         |
+| type     | 表单展示形式，默认为输入框，当设置为“customize”时，为自定义插槽 | string   | input  | input, text, computed, image, customize |
+| label    | 表头名称                                                        | string   |        |                                         |
+| tip      | 鼠标悬停提示                                                    | string   |        |                                         |
+| batch    | 是否开启批量设置                                                | boolean  | true   |                                         |
+| computed | 计算列回调方法，参数为单条SKU数据                               | function |        |                                         |
+| required | 是否必填                                                        | boolean  | false  |                                         |
+| validate | 自定义校验回调方法                                              | function | false  |                                         |
+| upload   | 图片上传相关配置                                                | object   |        |                                         |
 
 ```js
 // 例子
