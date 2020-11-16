@@ -5,7 +5,7 @@
                 <el-card v-for="(item, index) in myAttribute" :key="index" class="item" shadow="never">
                     <div slot="header">{{ item.name }}</div>
                     <el-checkbox v-for="(item2, index2) in item.item" :key="index2" v-model="item2.checked" :label="item2.name" size="small" />
-                    <el-input v-model="item.addAttribute" size="small" placeholder="新增一个规格" class="add-attr" @keyup.enter.native="onAddAttribute(index)">
+                    <el-input v-if="item.canAddAttribute" v-model="item.addAttribute" size="small" placeholder="新增一个规格" class="add-attr" @keyup.enter.native="onAddAttribute(index)">
                         <el-button slot="append" size="small" icon="el-icon-plus" @click="onAddAttribute(index)">添加</el-button>
                     </el-input>
                 </el-card>
@@ -269,6 +269,7 @@ export default {
                 this.sourceAttribute.forEach(v => {
                     const temp = {
                         name: v.name,
+                        canAddAttribute: typeof v.canAddAttribute != 'undefined' ?  v.canAddAttribute : true,
                         addAttribute: '',
                         item: []
                     }
@@ -438,7 +439,7 @@ export default {
 
 <style lang="scss" scoped>
 .sku-container {
-    /deep/ .el-card {
+    ::v-deep .el-card {
         margin: 10px 0;
         .el-card__header {
             line-height: initial;
@@ -480,10 +481,10 @@ export default {
     }
     .sku-list {
         line-height: initial;
-        /deep/ .el-input__inner {
+        ::v-deep .el-input__inner {
             text-align: center;
         }
-        /deep/ .el-table__append-wrapper {
+        ::v-deep .el-table__append-wrapper {
             overflow: initial;
             .el-table {
                 overflow: initial;
@@ -492,7 +493,7 @@ export default {
                 }
             }
         }
-        /deep/ .el-form-item {
+        ::v-deep .el-form-item {
             margin-bottom: 0;
             .el-form-item__content {
                 line-height: initial;
