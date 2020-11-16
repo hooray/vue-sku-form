@@ -2454,10 +2454,15 @@ core-js@2.6.11, core-js@^2.4.0:
   resolved "https://registry.npmjs.org/core-js/-/core-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha512-5wjnpaT/3dV+XB4borEsnAYQchn00XSgTAWKDkEqv+K8KevjbzmofK6hfJ9TZIlpj2N0xQpazy7PiRQiWHqzWg==
 
-core-js@^3.6.4, core-js@^3.6.5:
+core-js@^3.6.4:
   version "3.6.5"
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.6.5.tgz#7395dc273af37fb2e50e9bd3d9fe841285231d1a"
   integrity sha512-vZVEEwZoIsI+vPEuoF9Iqf5H7/M3eeQqWlQnYa8FSKKePuYTf5MWnxb5SDAzCa60b3JBRS5g9b+Dq7b1y/RCrA==
+
+core-js@^3.6.5:
+  version "3.7.0"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.7.0.tgz#b0a761a02488577afbf97179e4681bf49568520f"
+  integrity sha512-NwS7fI5M5B85EwpWuIwJN4i/fbisQUwLwiSNUWeXlkAZ0sbBjLEvLvFLf1uzAUV66PcEPt4xCGCmOZSxVf3xzA==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -3036,9 +3041,9 @@ electron-to-chromium@^1.3.523:
   integrity sha512-g5cGpg6rOCXxyfaLCQIWz9Fx+raFfbZ6sc4QLfvvaiCERBzY6YD6rh5d12QN++bEF1Tm9osYnxP37lbN/92j4A==
 
 element-ui@^2.13.2:
-  version "2.13.2"
-  resolved "https://registry.npmjs.org/element-ui/-/element-ui-2.13.2.tgz#582bf47aaaaaafe23ea1958fae217a687ad06447"
-  integrity sha512-r761DRPssMPKDiJZWFlG+4e4vr0cRG/atKr3Eqr8Xi0tQMNbtmYU1QXvFnKiFPFFGkgJ6zS6ASkG+sellcoHlQ==
+  version "2.14.1"
+  resolved "https://registry.npmjs.org/element-ui/-/element-ui-2.14.1.tgz#8b5745c7366c1c1a603bb6c021286ea7187e2aa2"
+  integrity sha512-Uje0J12dBaXdyvt/EtuDA8diFbYTdO7uI4QCfl7zmEJmE1WxgCSVKhlRRoL8MDonO8pyNVhB4n0AFAR14g56nw==
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -7522,10 +7527,15 @@ vue-loader@^15.7.1:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-router@^3.1.3, vue-router@^3.4.3:
+vue-router@^3.1.3:
   version "3.4.3"
   resolved "https://registry.npmjs.org/vue-router/-/vue-router-3.4.3.tgz#fa93768616ee338aa174f160ac965167fa572ffa"
   integrity sha512-BADg1mjGWX18Dpmy6bOGzGNnk7B/ZA0RxuA6qedY/YJwirMfKXIDzcccmHbQI0A6k5PzMdMloc0ElHfyOoX35A==
+
+vue-router@^3.4.3:
+  version "3.4.9"
+  resolved "https://registry.npmjs.org/vue-router/-/vue-router-3.4.9.tgz#c016f42030ae2932f14e4748b39a1d9a0e250e66"
+  integrity sha512-CGAKWN44RqXW06oC+u4mPgHLQQi2t6vLD/JbGRDAXm0YpMv0bgpKuU5bBd7AvMgfTz9kXVRIWKHqRwGEb8xFkA==
 
 vue-server-renderer@^2.6.10:
   version "2.6.12"
@@ -7542,9 +7552,9 @@ vue-server-renderer@^2.6.10:
     source-map "0.5.6"
 
 vue-sku-form@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.npmjs.org/vue-sku-form/-/vue-sku-form-0.4.0.tgz#65241887e2a7e2f5da74c355efdd68e3c5a6c304"
-  integrity sha512-zFEmVHo0zx1/9VxKu2akfSLcVPGilxhpL1YG0UuZtq9tOHgDkrzp/Bonfzt0VHP50U0pTw7n7cMoKXkL0BLmHg==
+  version "0.4.1"
+  resolved "https://registry.npmjs.org/vue-sku-form/-/vue-sku-form-0.4.1.tgz#1f17270b173e38e67a7e7945c2a33fc62d927580"
+  integrity sha512-H+qX5LT3Pkd/7N1EYMhrtrjZ+jucemA4jqG+9Sr0V0Qi7yrvaCKQr7hDqPzbPq2Yc/nnZTlbqk0Y/RSpcH2y3Q==
   dependencies:
     core-js "^3.6.5"
     element-ui "^2.13.2"

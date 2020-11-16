@@ -28,6 +28,7 @@ module.exports = {
 				children: [
 					'examples/basic',
 					'examples/separator',
+					'examples/can-add-attribute',
 					'examples/disabled',
 					'examples/theme',
 					'examples/customize',

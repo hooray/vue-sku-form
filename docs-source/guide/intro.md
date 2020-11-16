@@ -20,17 +20,18 @@ lang: zh-CN
 
 ### source-attribute
 
-| 名称 | 说明       | 类型   | 可选值 |
-| :--- | :--------- | :----- | :----- |
-| name | 属性名称   | string |        |
-| item | 属性可选项 | array  |        |
+| 名称            | 说明             | 类型    | 默认值 |
+| :-------------- | :--------------- | :------ | :----- |
+| name            | 属性名称         | string  |        |
+| item            | 属性可选项       | array   |        |
+| canAddAttribute | 是否可以添加属性 | boolean | true   |
 
 
 ```js
 // 例子
 [
 	{ name: '颜色', item: ['黑', '金', '白'] },
-	{ name: '内存', item: ['16G', '32G'] },
+	{ name: '内存', item: ['16G', '32G'], canAddAttribute: false },
 	{ name: '运营商', item: ['电信', '移动', '联通'] }
 ]
 ```
