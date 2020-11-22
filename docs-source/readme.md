@@ -7,11 +7,7 @@ actionLink: /guide/
 lang: zh-CN
 ---
 
-<h2 align="center">推广</h2>
-
-<!-- <p align="center">
-	<img src="https://hooray.gitee.io/fantastic-admin/logo.png" />
-</p> -->
+<h2 align="center">你可能感兴趣</h2>
 
 <h3 align="center">
 	<a href="https://hooray.gitee.io/fantastic-admin/" target="_blank">Fantastic-admin</a>
@@ -23,6 +19,8 @@ lang: zh-CN
 	<tr>
 		<td><img src="https://hooray.gitee.io/fantastic-admin/preview1.png" /></td>
 		<td><img src="https://hooray.gitee.io/fantastic-admin/preview2.png" /></td>
+	</tr>
+	<tr>
 		<td><img src="https://hooray.gitee.io/fantastic-admin/preview3.png" /></td>
 		<td><img src="https://hooray.gitee.io/fantastic-admin/preview4.png" /></td>
 	</tr>
