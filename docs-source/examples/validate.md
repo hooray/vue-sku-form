@@ -57,7 +57,6 @@ export default {
 					required: true,
 					// data: 完整 sku 数据，index: 当前 sku 在 data 中的下标，callback: 验证结果回调函数
 					validate: (data, index, callback) => {
-						console.log(data[index].stock ? true : false);
 						if (data[index].stock && parseInt(data[index].stock) < 10) {
 							callback(new Error('库存不能小于10'))
 						}
