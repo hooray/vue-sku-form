@@ -76,7 +76,7 @@ export default {
         },
         check(name) {
             let isError = false
-            this.$refs.skuForm.validateField([name], errorMessage => {
+            this.$refs.skuForm.validateFieldByColumns([name], errorMessage => {
                 if (errorMessage) {
                     isError = true
                 }
@@ -87,7 +87,7 @@ export default {
         },
         checkAll() {
             let isError = false
-            this.$refs.skuForm.validateField(['price', 'stock'], errorMessage => {
+            this.$refs.skuForm.validateFieldByColumns(['price', 'stock'], errorMessage => {
                 if (errorMessage) {
                     isError = true
                 }
